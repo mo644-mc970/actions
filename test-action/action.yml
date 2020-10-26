@@ -13,10 +13,12 @@ inputs:
 runs:
   using: "composite"
   steps:
-    - name: Initialize submodules
+    - name: Clone tests repo
       shell: bash
       run: |
-        git submodule update --init
+        if [[ ! -f tests/1.in ]]; then
+          git clone https://github.com/mo644-mc970/histogram-tests.git tests
+        fi
     - name: Run serial
       shell: bash
       run: |
