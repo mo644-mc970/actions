@@ -13,6 +13,10 @@ inputs:
 runs:
   using: "composite"
   steps:
+    - name: Initialize submodules
+      shell: bash
+      run: |
+        git submodule update --init
     - name: Run serial
       shell: bash
       run: |
