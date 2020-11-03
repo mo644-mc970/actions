@@ -13,6 +13,12 @@ inputs:
 runs:
   using: "composite"
   steps:
+    - name: Clone tests repo
+      shell: bash
+      run: |
+        if [[ ! -f tests/1.in ]]; then
+          git clone https://github.com/mo644-mc970/smoothing-tests.git tests
+        fi
     - name: Run serial
       shell: bash
       run: |
