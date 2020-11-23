@@ -19,8 +19,6 @@ runs:
         build/serial tests/${{inputs.testname}}.in \
             1>serial.${{inputs.testname}}.out \
             2>serial.${{inputs.testname}}.time
-        echo "Serial stdout:"
-        cat serial.${{inputs.testname}}.out
         echo "Serial stderr:"
         cat serial.${{inputs.testname}}.time
 
@@ -30,8 +28,6 @@ runs:
         build/parallel tests/${{inputs.testname}}.in \
             1>parallel.${{inputs.testname}}.out \
             2>parallel.${{inputs.testname}}.time
-        echo "Parallel stdout:"
-        cat parallel.${{inputs.testname}}.out
         echo "Parallel stderr:"
         cat parallel.${{inputs.testname}}.time
       env:
@@ -40,4 +36,4 @@ runs:
     - name: Compare results
       shell: bash
       run: |
-        diff -u serial.${{inputs.testname}}.out parallel.${{inputs.testname}}.out
+        diff -q serial.${{inputs.testname}}.out parallel.${{inputs.testname}}.out
