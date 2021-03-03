@@ -39,17 +39,3 @@ runs:
       shell: bash
       run: |
         diff -u serial.${{inputs.testname}}.out parallel.${{inputs.testname}}.out
-
-    - name: Compute speedup
-      shell: bash
-      run: |
-        ser=$(<serial.${{inputs.testname}}.time)
-        par=$(<parallel.${{inputs.testname}}.time)
-        speedup=$(bc -l <<< "scale=4; $ser/$par")
-        echo "  Serial runtime: ${ser}s"
-        echo "Parallel runtime: ${par}s"
-        echo "         Speedup: ${speedup}x"
-        if [[ ! -f runtime.csv ]]; then
-          echo "# Input,Serial time,Parallel time,Speedup" > runtime.csv
-        fi
-        echo "${{inputs.testname}},$ser,$par,$speedup" >> runtime.csv
